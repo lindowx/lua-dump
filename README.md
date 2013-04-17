@@ -7,6 +7,8 @@ PHP-like var_dump for ngx_lua
     
     local d = require "resty.dump"
     
+    local str = "hello, world"
+    local num = 1024
     local var_to_dump = {"hello", "world", 2013}
     local var_to_debug = {num=1024, str="abc", bool=true, "test", 2013}
     
@@ -27,6 +29,8 @@ Output:
         ["num"] => number(1024)
         ["str"] => string(3)"abc"
     }
+    string(12)"hello, world"
+    number(1024)
     
 If "d.html = true" is set, it looks more pretty.
 
@@ -45,10 +49,10 @@ Output:
 
 # Methods #
 
- - *var_dump(var)*
+ - *var_dump(...)*
  
   Print the dump info.
 
- - *debug(var)*
+ - *debug(...)*
  
   Print the dump info then stop the code execution.
