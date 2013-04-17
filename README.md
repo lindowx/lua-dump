@@ -46,4 +46,4 @@ If "d.html = true" is set, it looks more pretty.
 
  - *debug(var)*
  
-  Print the dump info and exit with HTTP status 200.
+  Print the dump info then stop the code execution.
