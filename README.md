@@ -36,7 +36,7 @@ If "d.html = true" is set, it looks more pretty.
 
  - *html [true|false]*
   
-  Print the dump info as html string (or plain text).
+  Print the dump info as html string (or else plain text).
 
 # Methods #
 
