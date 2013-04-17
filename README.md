@@ -1,7 +1,7 @@
 resty-dump
 ==========
 
-PHP-Like var_dump for ngx_lua
+PHP-like var_dump for ngx_lua
 
 # Uses #
     
@@ -28,7 +28,7 @@ Output:
         ["str"] => string(3)"abc"
     }
     
-If "d.html = true" is set.
+If "d.html = true" is set, it looks more pretty.
     
   ![pretty output](https://raw.github.com/lindowx/resty-dump/master/pretty_output.png)
 
