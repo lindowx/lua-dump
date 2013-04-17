@@ -41,7 +41,7 @@ If "d.html = true" is set, it looks more pretty.
     
 Output:
     
-  ![pretty output](https://raw.github.com/lindowx/resty-dump/master/pretty_output.png)
+  ![pretty output](https://raw.github.com/lindowx/lua-resty-dump/master/pretty_output.png)
 
 # Attrs #
 
