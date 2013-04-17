@@ -29,6 +29,11 @@ Output:
     }
     
 If "d.html = true" is set, it looks more pretty.
+
+    d.html = true
+    -- dump some vars
+    
+Output:
     
   ![pretty output](https://raw.github.com/lindowx/resty-dump/master/pretty_output.png)
 
