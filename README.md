@@ -3,6 +3,8 @@ resty-dump
 
 PHP-like var_dump for ngx_lua
 
+Tags: Lua Nginx dump var_dump debug
+
 # Uses #
     
     local d = require "resty.dump"
