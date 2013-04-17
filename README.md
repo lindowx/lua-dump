@@ -11,7 +11,7 @@ PHP-Like var_dump for ngx_lua
     local var_to_dump = {"hello", "world", 2013}
     local var_to_debug = {num=1024, str="abc", bool=true, "test", 2013}
     
-    d.dump(var_to_dump)
+    d.var_dump(var_to_dump)
     d.debug(var_to_debug)
     
 
