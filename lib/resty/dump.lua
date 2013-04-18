@@ -100,7 +100,7 @@ function var_dump(...)
 		elseif var_type == "table" then
 			ngx.print(s("table", "resty_dump_t_tab") .. s("  {", "resty_dump_ts", 1))
 			print_table(var, 1)
-			ngx.print(s("}", "ts", 1))
+			ngx.print(s("}", "resty_dump_ts", 1))
 	
 		elseif var_type == "userdata" then	
 			ngx.print(s("userdata [...]", "resty_dump_t_str", 1))
