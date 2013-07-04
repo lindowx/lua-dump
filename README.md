@@ -1,4 +1,4 @@
-resty-dump
+lua-dump
 ==========
 
 PHP-like var_dump for ngx_lua
