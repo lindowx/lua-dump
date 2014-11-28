@@ -5,7 +5,7 @@
 
 module(..., package.seeall)
 
-_VERSION = '0.1.0'
+_VERSION = '0.2.0'
 
 html = false
 
@@ -21,6 +21,8 @@ local function test_html()
 			".resty_dump_v_num{color:red;}",
 			".resty_dump_t_tab{font-weight:bold;}",
 			".resty_dump_ts{color:#009;font-weight:bold}",
+			".resty_dump_t_nil{color:#aaa;font-style:italic;}",
+			".resty_dump_t_global_data{color:#999; font-style:italic}",
 			"</style>\n"
 		}
 		ngx.print(table.concat(styles))
@@ -44,24 +46,18 @@ local function s(str, class, n)
 end
 
 local function idt(n)
-	local indent = ""
 	local placeholder = "    "
 	if html then
 		placeholder = "<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>"
 	end
 
-	for j =1,n do
-		indent = indent .. placeholder
-	end 
-
-	return indent
+	return string.rep(placeholder, n)
 end
 
 function print_table(t, i)
 	test_html()
 
-	local indent = ""
-	if not i then i=0 end
+	i = i or 0
 
 	for k, v in pairs(t) do
 		local v_type = type(v)
@@ -73,7 +69,13 @@ function print_table(t, i)
 			ngx.print(idt(i) .. "[" .. s(k, "resty_dump_v_num") .. "] => ")
 		end
 
-		if v_type == "table" then
+		if k == "_G" then
+			ngx.print(s("Global Data {...}", "resty_dump_t_global_data", 1))
+
+		elseif k == "_M" then
+			ngx.print(s("Module Self {...}", "resty_dump_t_global_data", 1))
+
+		elseif v_type == "table" then
 			ngx.print(s("table", "resty_dump_t_tab") .. s(" {", "resty_dump_ts", 1))
 
 			if v == {} then
@@ -91,10 +93,24 @@ end
 
 function var_dump(...)
 	test_html()
-	
-    for _,var in pairs({...}) do
+
+	local argc = #{...}
+	local argv = {...}
+	local idx = 1
+
+	if argc == 0 then
+		ngx.print(s("nil", "resty_dump_t_nil", 1))
+	end
+
+	while idx <= argc do
+		
+		local var = argv[idx]
 		local var_type = type(var)
-		if var_type == "string" then
+
+		if var == nil then
+			ngx.print(s("nil", "resty_dump_t_nil", 1))
+			
+		elseif var_type == "string" then
 			ngx.print( s(var_type, "resty_dump_t_str") .. "(" .. s(#var, "resty_dump_v_num") .. ")" .. s("\"" .. var .. "\"", "resty_dump_v_str", 1) )
 	
 		elseif var_type == "table" then
@@ -105,13 +121,14 @@ function var_dump(...)
 		elseif var_type == "userdata" then	
 			ngx.print(s("userdata [...]", "resty_dump_t_str", 1))
 	
-		elseif var == nil then
-			ngx.print(s("nil", "nil", 1))
-	
 		else
 			ngx.print(s(var_type, "resty_dump_t_str") .. "("  .. s(tostring(var), "resty_dump_v_num") .. ")" .. s("", "resty_dump_ts", 1))
 		end
-    end
+
+		idx = idx + 1
+	end
+	
+    
 end
 
 function debug(...)
